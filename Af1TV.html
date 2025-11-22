@@ -15,7 +15,7 @@
     #player{background:black;position:relative;overflow:hidden;cursor:pointer;flex:0 0 22vh}
     @media (orientation: landscape){#player{flex:0 0 16vh}}
     #video,#audio{width:100%;height:100%;object-fit:contain;background:black}
-    #radioPlaceholder{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:110px;height:110px;background:url('https://i.postimg.cc/P5CL0ncC/logo11-17-205545.png') center/contain no-repeat;z-index:10}
+    #radioPlaceholder{position:absolute;top:50 Wednesday 22 November 2025 11:55 PM
     #searchInput{background:#222;color:white;border:none;padding:10px;margin:6px;border-radius:8px;width:calc(100%-12px);font-size:15px}
     .tabs{display:flex;gap:6px;padding:4px 6px;overflow-x:auto;background:#111;scrollbar-width:none}
     .tabs::-webkit-scrollbar{display:none}
@@ -73,10 +73,10 @@
   const cacheKey = 'af1_channels_cache';
   const cache = JSON.parse(localStorage.getItem(cacheKey) || '{}');
 
-  // TU LISTA DE FÚTBOL (cámbiala por la tuya cuando la tengas llena)
-  const FUTBOL_M3U = 'https://iptv.bjqz.net/sports.m3u';   // ← esta tiene 400+ canales vivos ahora mismo
+  // TU LISTA DE FÚTBOL (cámbiala por la tuya cuando quieras)
+  const FUTBOL_M3U = 'https://raw.githubusercontent.com/la22lo/sports/main/futbol.m3u';
 
-  // PROXY CORS INTEGRADO (el mejor y más estable del mundo en 2025)
+  // PROXY CORS MÁGICO (el mejor y más estable del mundo 2025)
   const PROXY = url => `https://corsproxy.io/?${encodeURIComponent(url)}`;
 
   video.style.display = 'none';
@@ -125,7 +125,7 @@
       const div = document.createElement('div');
       div.className = 'channel';
       div.innerHTML = `<img src="${item.logo}" onerror="this.src='${LOGO}'"><span>${item.name}</span>`;
-      div.onclick = () => loadRemoteList(item  loadRemoteList(item.url);
+      div.onclick = () => loadRemoteList(item.url);
       channelList.appendChild(div);
     });
   }
@@ -179,10 +179,11 @@
   }
 
   function playChannel(originalUrl, name, isRadio = false) {
-    // APLICAMOS EL PROXY SOLO A LOS QUE LO NECESITAN
-    const url = originalUrl.includes('iptv-org') || originalUrl.includes('radio-browser') 
-                ? originalUrl 
-                : PROXY(originalUrl);
+    // APLICAMOS EL PROXY CORS SOLO CUANDO ES NECESARIO (mantiene velocidad máxima)
+    let url = originalUrl;
+    if (!url.includes('iptv-org.github.io') && !url.includes('radio-browser')) {
+      url = PROXY(originalUrl);
+    }
 
     if (currentHls) { currentHls.destroy(); currentHls = null; }
     if (currentDash) { currentDash.destroy(); currentDash = null; }
