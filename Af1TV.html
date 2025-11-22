@@ -1,36 +1,35 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>AF1CIONADOS TV</title>
-  <script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
-  <script src="https://cdn.dashjs.org/latest/dash.all.min.js"></script>
-  <style>
-    *{margin:0;padding:0;box-sizing:border-box}
-    body{font-family:Arial,sans-serif;background:#000;color:white;display:flex;flex-direction:column;height:100vh;overflow:hidden}
-    header{background:#111;padding:8px 12px;display:flex;align-items:center;gap:10px;border-bottom:2px solid #ff4500}
-    header img{width:42px;height:42px;border-radius:50%;border:2px solid #ff4500}
-    header h1{font-size:19px;font-weight:bold}
-    #player{background:black;position:relative;overflow:hidden;cursor:pointer;flex:0 0 22vh}
-    @media (orientation: landscape){#player{flex:0 0 16vh}}
-    #video,#audio{width:100%;height:100%;object-fit:contain;background:black}
-    #radioPlaceholder{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:110px;height:110px;background:url('https://i.postimg.cc/P5CL0ncC/logo11-17-205545.png') center/contain no-repeat;z-index:10;display:none}
-    #searchInput{background:#222;color:white;border:none;padding:10px;margin:6px;border-radius:8px;width:calc(100%-12px);font-size:15px}
-    .tabs{display:flex;gap:6px;padding:4px 6px;overflow-x:auto;background:#111;scrollbar-width:none}
-    .tabs::-webkit-scrollbar{display:none}
-    .tab{background:#222;padding:9px 16px;border-radius:8px;min-width:85px;text-align:center;cursor:pointer;font-size:13.5px;transition:.2s}
-    .tab:hover{background:#333}
-    .tab.active{background:#ff4500;font-weight:bold;color:white}
-    .channelList{flex:1;overflow-y:auto;padding:8px 10px;background:#000}
-    .channel{display:flex;align-items:center;gap:14px;padding:13px;background:#111;border-radius:12px;margin:5px 3px;cursor:pointer;transition:.2s;border:1px solid #1a1a1a}
-    .channel:hover{background:#1f1f1f;border-color:#ff4500}
-    .channel.selected{background:#ff4500;color:white;font-weight:bold}
-    .channel img{width:38px;height:38px;border-radius:50%;object-fit:cover;flex-shrink:0}
-    .channel span{flex:1;font-size:15px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
-    .loading{text-align:center;padding:60px;color:#666;font-size:17px}
-    #channelOverlay{position:absolute;bottom:10px;left:10px;background:rgba(0,0,0,0.85);padding:9px 16px;border-radius:10px;font-weight:bold;z-index:10;display:none;font-size:15px}
-  </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AF1CIONADOS TV</title>
+<script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
+<script src="https://cdn.dashjs.org/latest/dash.all.min.js"></script>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:Arial,sans-serif;background:#000;color:#fff;display:flex;flex-direction:column;height:100vh;overflow:hidden}
+header{background:#111;padding:8px 12px;display:flex;align-items:center;gap:10px;border-bottom:2px solid #ff4500}
+header img{width:42px;height:42px;border-radius:50%;border:2px solid #ff4500}
+header h1{font-size:19px;font-weight:bold}
+#player{background:#000;position:relative;flex:0 0 22vh;overflow:hidden;cursor:pointer}
+@media(orientation:landscape){#player{flex:0 0 16vh}}
+#video,#audio{width:100%;height:100%;object-fit:contain;background:#000}
+#radioPlaceholder{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:110px;height:110px;background:url('https://i.postimg.cc/P5CL0ncC/logo11-17-205545.png') center/contain no-repeat;z-index:10;display:none}
+#searchInput{background:#222;color:#fff;border:none;padding:10px;margin:6px;border-radius:8px;width:calc(100%-12px);font-size:15px}
+.tabs{display:flex;gap:6px;padding:4px 6px;overflow-x:auto;background:#111;scrollbar-width:none}
+.tab{background:#222;padding:9px 16px;border-radius:8px;min-width:85px;text-align:center;cursor:pointer;font-size:13.5px;transition:.2s}
+.tab:hover{background:#333}
+.tab.active{background:#ff4500;font-weight:bold;color:#fff}
+.channelList{flex:1;overflow-y:auto;padding:8px 10px;background:#000}
+.channel{display:flex;align-items:center;gap:14px;padding:13px;background:#111;border-radius:12px;margin:5px 3px;cursor:pointer;transition:.2s;border:1px solid #1a1a1a}
+.channel:hover{background:#1f1f1f;border-color:#ff4500}
+.channel.selected{background:#ff4500;color:#fff;font-weight:bold}
+.channel img{width:38px;height:38px;border-radius:50%;object-fit:cover;flex-shrink:0}
+.channel span{flex:1;font-size:15px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.loading{text-align:center;padding:60px;color:#666;font-size:17px}
+#channelOverlay{position:absolute;bottom:10px;left:10px;background:rgba(0,0,0,0.85);padding:9px 16px;border-radius:10px;font-weight:bold;z-index:10;display:none;font-size:15px}
+</style>
 </head>
 <body>
 
@@ -58,210 +57,207 @@
 <div class="channelList" id="channelList"></div>
 
 <script>
-  const video = document.getElementById('video');
-  const audio = document.getElementById('audio');
-  const radioPlaceholder = document.getElementById('radioPlaceholder');
-  const searchInput = document.getElementById('searchInput');
-  const tabs = document.querySelectorAll('.tab');
-  const channelList = document.getElementById('channelList');
-  const overlay = document.getElementById('channelOverlay');
-  let allChannels = [];
-  let currentHls = null;
-  let currentDash = null;
-  let currentMode = 'tv';
-  const LOGO = 'https://i.postimg.cc/P5CL0ncC/logo11-17-205545.png';
-  const cacheKey = 'af1_channels_cache';
-  const cache = JSON.parse(localStorage.getItem(cacheKey) || '{}');
+// CONFIGURACIÓN
+const LOGO = 'https://i.postimg.cc/P5CL0ncC/logo11-17-205545.png';
+const FUTBOL_M3U = 'https://raw.githubusercontent.com/la22lo/sports/main/futbol.m3u'; // ← tu lista real
+const PROXY = url => `https://corsproxy.io/?${encodeURIComponent(url)}`; // PROXY MÁGICO
 
-  // Cambia esta línea por tu lista real cuando la tengas llena
-  const FUTBOL_M3U = 'https://raw.githubusercontent.com/la22lo/sports/main/futbol.m3u';
+const video = document.getElementById('video');
+const audio = document.getElementById('audio');
+const radioPlaceholder = document.getElementById('radioPlaceholder');
+const searchInput = document.getElementById('searchInput');
+const tabs = document.querySelectorAll('.tab');
+const channelList = document.getElementById('channelList');
+const overlay = document.getElementById('channelOverlay');
+let allChannels = [];
+let currentHls = null;
+let currentDash = null;
+let currentMode = 'tv';
+const cache = JSON.parse(localStorage.getItem('af1cache') || '{}');
 
-  // Proxy CORS solo cuando haga falta (el más estable del mundo)
-  const PROXY = url => `https://corsproxy.io/?${encodeURIComponent(url)}`;
+// INICIO LIMPIO
+video.style.display = 'none';
+audio.style.display = 'none';
+radioPlaceholder.style.display = 'none';
 
-  video.style.display = 'none';
-  audio.style.display = 'none';
+// CARGAR AL INICIO
+loadAllChannels();
+
+// BUSCADOR
+searchInput.addEventListener('input', () => {
+  const term = searchInput.value.toLowerCase();
+  const filtered = allChannels.filter(c => c.name.toLowerCase().includes(term));
+  displayChannels(filtered, currentMode === 'radio');
+});
+
+// PESTAÑAS
+tabs.forEach(tab => tab.onclick = () => {
+  tabs.forEach(t => t.classList.remove('active'));
+  tab.classList.add('active');
+  const t = tab.dataset.type;
+  currentMode = t === 'radio' ? 'radio' : 'tv';
+  if(t==='all') loadAllChannels();
+  if(t==='country') loadChannelsByType('country');
+  if(t==='category') loadChannelsByType('category');
+  if(t==='radio') loadRadioCountries();
+});
+
+// LISTAS POR TIPO
+function loadChannelsByType(type) {
+  const lists = {
+    country: [
+      {name:'España',url:'https://iptv-org.github.io/iptv/countries/es.m3u',logo:'https://flagcdn.com/es.png'},
+      {name:'Argentina',url:'https://iptv-org.github.io/iptv/countries/ar.m3u',logo:'https://flagcdn.com/ar.png'},
+      {name:'México',url:'https://iptv-org.github.io/iptv/countries/mx.m3u',logo:'https://flagcdn.com/mx.png'}
+    ],
+    category: [
+      {name:'Deportes',url:'https://iptv-org.github.io/iptv/categories/sports.m3u',logo:LOGO},
+      {name:'Películas',url:'https://iptv-org.github.io/iptv/categories/movies.m3u',logo:LOGO},
+      {name:'Noticias',url:'https://iptv-org.github.io/iptv/categories/news.m3u',logo:LOGO},
+      {name:'Infantiles',url:'https://iptv-org.github.io/iptv/categories/kids.m3u',logo:LOGO},
+      {name:'Fútbol en directo',url:FUTBOL_M3U,logo:'https://i.postimg.cc/76j0v2Wz/soccer-ball.png'}
+    ]
+  };
+  channelList.innerHTML = '';
+  lists[type].forEach(i => {
+    const d = document.createElement('div');
+    d.className = 'channel';
+    d.innerHTML = `<img src="${i.logo}" onerror="this.src='${LOGO}'"><span>${i.name}</span>`;
+    d.onclick = () => loadRemoteList(i.url);
+    channelList.appendChild(d);
+  });
+}
+
+// CARGAR LISTA REMOTA
+function loadRemoteList(url) {
+  if(cache[url]) { allChannels = cache[url]; displayChannels(allChannels); return; }
+  channelList.innerHTML = '<div class="loading">Cargando...</div>';
+  fetch(url)
+    .then(r => r.text())
+    .then(text => {
+      const parsed = parseM3U(text);
+      allChannels = parsed;
+      cache[url] = parsed;
+      localStorage.setItem('af1cache', JSON.stringify(cache));
+      displayChannels(parsed);
+    })
+    .catch(() => channelList.innerHTML = '<div class="loading">Error al cargar</div>');
+}
+
+// PARSEAR M3U
+function parseM3U(text) {
+  const channels = [];
+  const lines = text.split('\n');
+  let info = null;
+  for(let line of lines){
+    line = line.trim();
+    if(line.startsWith('#EXTINF:')) info = line;
+    else if(line && !line.startsWith('#') && info){
+      const name = info.split(',').pop().trim();
+      const logo = info.match(/tvg-logo="([^"]+)"/i)?.[1] || LOGO;
+      channels.push({name, url: line, logo});
+      info = null;
+    }
+  }
+  return channels;
+}
+
+// MOSTRAR CANALES
+function displayChannels(channels, isRadio=false){
+  channelList.innerHTML = '';
+  if(!channels.length){ channelList.innerHTML = '<div class="loading">No hay canales</div>'; return; }
+  channels.forEach(ch => {
+    const d = document.createElement('div');
+    d.className = 'channel';
+    d.innerHTML = `<img src="${ch.logo}" onerror="this.src='${LOGO}'"><span>${ch.name}</span>`;
+    d.onclick = () => {
+      document.querySelectorAll('.channel').forEach(c=>c.classList.remove('selected'));
+      d.classList.add('selected');
+      playChannel(ch.url, ch.name, isRadio);
+    };
+    channelList.appendChild(d);
+  });
+}
+
+// REPRODUCIR (CON PROXY AUTOMÁTICO)
+function playChannel(originalUrl, name, isRadio=false){
+  let url = originalUrl;
+  // Aplica proxy a todo lo que NO sea iptv-org (los que dan CORS)
+  if(!originalUrl.includes('iptv-org.github.io') && !originalUrl.includes('radio-browser')){
+    url = PROXY(originalUrl);
+  }
+
+  if(currentHls){ currentHls.destroy(); currentHls = null; }
+  if(currentDash){ currentDash.destroy(); currentDash = null; }
+  video.pause(); video.removeAttribute('src'); video.load();
+  audio.pause(); audio.removeAttribute('src'); audio.load();
+
+  overlay.textContent = 'Cargando: ' + name;
+  overlay.style.display = 'block';
   radioPlaceholder.style.display = 'none';
 
-  loadAllChannels();
-
-  searchInput.addEventListener('input', () => {
-    const term = searchInput.value.toLowerCase();
-    const filtered = allChannels.filter(c => c.name.toLowerCase().includes(term));
-    displayChannels(filtered, currentMode === 'radio');
-  });
-
-  tabs.forEach(tab => {
-    tab.addEventListener('click', () => {
-      tabs.forEach(t => t.classList.remove('active'));
-      tab.classList.add('active');
-      const type = tab.dataset.type;
-      currentMode = type === 'radio' ? 'radio' : 'tv';
-      if (type === 'all') loadAllChannels();
-      else if (type === 'country') loadChannelsByType('country');
-      else if (type === 'category') loadChannelsByType('category');
-      else if (type === 'radio') loadRadioCountries();
-    });
-  });
-
-  function loadChannelsByType(type) {
-    const lists = {
-      country: [
-        { name: 'España', url: 'https://iptv-org.github.io/iptv/countries/es.m3u', logo: 'https://flagcdn.com/es.png' },
-        { name: 'Argentina', url: 'https://iptv-org.github.io/iptv/countries/ar.m3u', logo: 'https://flagcdn.com/ar.png' },
-        { name: 'México', url: 'https://iptv-org.github.io/iptv/countries/mx.m3u', logo: 'https://flagcdn.com/mx.png' }
-      ],
-      category: [
-        { name: 'Deportes', url: 'https://iptv-org.github.io/iptv/categories/sports.m3u', logo: LOGO },
-        { name: 'Películas', url: 'https://iptv-org.github.io/iptv/categories/movies.m3u', logo: LOGO },
-        { name: 'Noticias', url: 'https://iptv-org.github.io/iptv/categories/news.m3u', logo: LOGO },
-        { name: 'Infantiles', url: 'https://iptv-org.github.io/iptv/categories/kids.m3u', logo: LOGO },
-        { name: 'Fútbol en directo', url: FUTBOL_M3U, logo: 'https://i.postimg.cc/76j0v2Wz/soccer-ball.png' }
-      ]
-    };
-
-    channelList.innerHTML = '';
-    lists[type].forEach(item => {
-      const div = document.createElement('div');
-      div.className = 'channel';
-      div.innerHTML = `<img src="${item.logo}" onerror="this.src='${LOGO}'"><span>${item.name}</span>`;
-      div.onclick = () => loadRemoteList(item.url);
-      channelList.appendChild(div);
-    });
+  if(isRadio){
+    video.style.display = 'none';
+    audio.style.display = 'block';
+    radioPlaceholder.style.display = 'block';
+    audio.src = url;
+    audio.play();
+    overlay.style.display = 'none';
+    return;
   }
 
-  function loadRemoteList(url) {
-    if (cache[url]) { allChannels = cache[url]; displayChannels(allChannels); return; }
-    channelList.innerHTML = '<div class="loading">Cargando canales...</div>';
-    fetch(url)
-      .then(r => r.text())
-      .then(text => {
-        const parsed = parseM3U(text);
-        allChannels = parsed;
-        cache[url] = parsed;
-        localStorage.setItem(cacheKey, JSON.stringify(cache));
-        displayChannels(parsed);
-      })
-      .catch(() => channelList.innerHTML = '<div class="loading">Error al cargar</div>');
+  video.style.display = 'block';
+  audio.style.display = 'none';
+
+  const timeout = setTimeout(()=>{ overlay.textContent = 'Enlace caído'; setTimeout(()=>overlay.style.display='none',3000); }, 15000);
+
+  const start = () => { clearTimeout(timeout); video.play().catch(()=>{}); overlay.style.display = 'none'; };
+
+  if(url.includes('.mpd')){
+    currentDash = dashjs.MediaPlayer().create();
+    currentDash.initialize(video, url, true);
   }
-
-  function parseM3U(text) {
-    const channels = [];
-    const lines = text.split('\n');
-    let info = null;
-    for (let line of lines) {
-      line = line.trim();
-      if (line.startsWith('#EXTINF:')) info = line;
-      else if (line && !line.startsWith('#') && info) {
-        const name = info.split(',').pop().trim();
-        const logo = info.match(/tvg-logo="([^"]+)"/i)?.[1] || LOGO;
-        channels.push({ name, url: line, logo });
-        info = null;
-      }
-    }
-    return channels;
+  else if(url.includes('.m3u8') && Hls.isSupported()){
+    currentHls = new Hls({maxLoadingDelay:10});
+    currentHls.loadSource(url);
+    currentHls.attachMedia(video);
+    currentHls.on(Hls.Events.MANIFEST_PARSED, start);
   }
-
-  function displayChannels(channels, isRadio = false) {
-    channelList.innerHTML = '';
-    if (!channels.length) { channelList.innerHTML = '<div class="loading">No hay canales</div>'; return; }
-    channels.forEach(ch => {
-      const div = document.createElement('div');
-      div.className = 'channel';
-      div.innerHTML = `<img src="${ch.logo}" onerror="this.src='${LOGO}'"><span>${ch.name}</span>`;
-      div.onclick = () => {
-        document.querySelectorAll('.channel').forEach(c => c.classList.remove('selected'));
-        div.classList.add('selected');
-        playChannel(ch.url, ch.name, isRadio);
-      };
-      channelList.appendChild(div);
-    });
+  else{
+    video.src = url;
+    video.load();
+    video.oncanplay = start;
   }
+}
 
-  function playChannel(originalUrl, name, isRadio = false) {
-    // Proxy solo para los que tengan problemas CORS
-    let url = originalUrl;
-    if (!originalUrl.includes('iptv-org.github.io') && !originalUrl.includes('radio-browser.info')) {
-      url = PROXY(originalUrl);
-    }
+// CARGAR AL INICIO
+function loadAllChannels(){
+  const url = 'https://iptv-org.github.io/iptv/index.m3u';
+  if(cache[url]){ allChannels = cache[url]; displayChannels(allChannels); return; }
+  loadRemoteList(url);
+}
 
-    if (currentHls) { currentHls.destroy(); currentHls = null; }
-    if (currentDash) { currentDash.destroy(); currentDash = null; }
-    video.pause(); video.removeAttribute('src'); video.load();
-    audio.pause(); audio.removeAttribute('src'); audio.load();
-
-    overlay.textContent = 'Cargando: ' + name;
-    overlay.style.display = 'block';
-    radioPlaceholder.style.display = 'none';
-
-    if (isRadio) {
-      video.style.display = 'none';
-      audio.style.display = 'block';
-      radioPlaceholder.style.display = 'block';
-      audio.src = url;
-      audio.play().catch(() => {});
-      overlay.style.display = 'none';
-      return;
-    }
-
-    video.style.display = 'block';
-    audio.style.display = 'none';
-
-    const timeout = setTimeout(() => {
-      overlay.textContent = 'Enlace caído';
-      setTimeout(() => overlay.style.display = 'none', 3000);
-    }, 15000);
-
-    const start = () => {
-      clearTimeout(timeout);
-      video.play().catch(() => {});
-      overlay.style.display = 'none';
-    };
-
-    if (url.includes('.mpd')) {
-      currentDash = dashjs.MediaPlayer().create();
-      currentDash.initialize(video, url, true);
-    }
-    else if (url.includes('.m3u8') && Hls.isSupported()) {
-      currentHls = new Hls({ maxLoadingDelay: 10 });
-      currentHls.loadSource(url);
-      currentHls.attachMedia(video);
-      currentHls.on(Hls.Events.MANIFEST_PARSED, start);
-    }
-    else {
-      video.src = url;
-      video.load();
-      video.oncanplay = start;
-    }
-  }
-
-  function loadAllChannels() {
-    const url = 'https://iptv-org.github.io/iptv/index.m3u';
-    if (cache[url]) { allChannels = cache[url]; displayChannels(allChannels); return; }
-    loadRemoteList(url);
-  }
-
-  function loadRadioCountries() {
-    fetch('https://de1.api.radio-browser.info/json/countries?order=stationcount&reverse=true&hidebroken=true')
-      .then(r => r.json())
-      .then(data => {
-        channelList.innerHTML = '';
-        data.slice(0,60).forEach(c => {
-          const div = document.createElement('div');
-          div.className = 'channel';
-          const flag = c.iso_3166_1 ? `https://flagcdn.com/32x24/${c.iso_3166_1.toLowerCase()}.png` : LOGO;
-          div.innerHTML = `<img src="${flag}"><span>${c.name} (${c.stationcount})</span>`;
-          div.onclick = () => loadRadioStations(c.name);
-          channelList.appendChild(div);
-        });
+// RADIOS
+function loadRadioCountries(){
+  fetch('https://de1.api.radio-browser.info/json/countries?order=stationcount&reverse=true&hidebroken=true')
+    .then(r=>r.json())
+    .then(data=>{
+      channelList.innerHTML='';
+      data.slice(0,60).forEach(c=>{
+        const d=document.createElement('div');
+        d.className='channel';
+        const f = c.iso_3166_1 ? `https://flagcdn.com/32x24/${c.iso_3166_1.toLowerCase()}.png` : LOGO;
+        d.innerHTML=`<img src="${f}"><span>${c.name} (${c.stationcount})</span>`;
+        d.onclick = ()=>loadRadioStations(c.name);
+        channelList.appendChild(d);
       });
-  }
-
-  function loadRadioStations(country) {
-    fetch(`https://de1.api.radio-browser.info/json/stations/bycountryexact/${encodeURIComponent(country)}?hidebroken=true&order=clickcount&reverse=true&limit=500`)
-      .then(r => r.json())
-      .then(st => displayChannels(st.filter(s=>s.url_resolved).map(s=>({name:s.name,url:s.url_resolved,logo:s.favicon||LOGO})), true));
-  }
+    });
+}
+function loadRadioStations(country){
+  fetch(`https://de1.api.radio-browser.info/json/stations/bycountryexact/${encodeURIComponent(country)}?hidebroken=true&limit=500`)
+    .then(r=>r.json())
+    .then(st=>displayChannels(st.filter(s=>s.url_resolved).map(s=>({name:s.name,url:s.url_resolved,logo:s.favicon||LOGO})), true));
+}
 </script>
 </body>
 </html>
