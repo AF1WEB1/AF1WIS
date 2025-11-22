@@ -15,7 +15,7 @@
     #player{background:black;position:relative;overflow:hidden;cursor:pointer;flex:0 0 22vh}
     @media (orientation: landscape){#player{flex:0 0 16vh}}
     #video,#audio{width:100%;height:100%;object-fit:contain;background:black}
-    #radioPlaceholder{position:absolute;top:50 Wednesday 22 November 2025 11:55 PM
+    #radioPlaceholder{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:110px;height:110px;background:url('https://i.postimg.cc/P5CL0ncC/logo11-17-205545.png') center/contain no-repeat;z-index:10;display:none}
     #searchInput{background:#222;color:white;border:none;padding:10px;margin:6px;border-radius:8px;width:calc(100%-12px);font-size:15px}
     .tabs{display:flex;gap:6px;padding:4px 6px;overflow-x:auto;background:#111;scrollbar-width:none}
     .tabs::-webkit-scrollbar{display:none}
@@ -73,15 +73,15 @@
   const cacheKey = 'af1_channels_cache';
   const cache = JSON.parse(localStorage.getItem(cacheKey) || '{}');
 
-  // TU LISTA DE FÚTBOL (cámbiala por la tuya cuando quieras)
+  // Cambia esta línea por tu lista real cuando la tengas llena
   const FUTBOL_M3U = 'https://raw.githubusercontent.com/la22lo/sports/main/futbol.m3u';
 
-  // PROXY CORS MÁGICO (el mejor y más estable del mundo 2025)
+  // Proxy CORS solo cuando haga falta (el más estable del mundo)
   const PROXY = url => `https://corsproxy.io/?${encodeURIComponent(url)}`;
 
   video.style.display = 'none';
   audio.style.display = 'none';
-  radioPlaceholder.style.display = 'block';
+  radioPlaceholder.style.display = 'none';
 
   loadAllChannels();
 
@@ -179,9 +179,9 @@
   }
 
   function playChannel(originalUrl, name, isRadio = false) {
-    // APLICAMOS EL PROXY CORS SOLO CUANDO ES NECESARIO (mantiene velocidad máxima)
+    // Proxy solo para los que tengan problemas CORS
     let url = originalUrl;
-    if (!url.includes('iptv-org.github.io') && !url.includes('radio-browser')) {
+    if (!originalUrl.includes('iptv-org.github.io') && !originalUrl.includes('radio-browser.info')) {
       url = PROXY(originalUrl);
     }
 
@@ -192,6 +192,7 @@
 
     overlay.textContent = 'Cargando: ' + name;
     overlay.style.display = 'block';
+    radioPlaceholder.style.display = 'none';
 
     if (isRadio) {
       video.style.display = 'none';
@@ -205,8 +206,6 @@
 
     video.style.display = 'block';
     audio.style.display = 'none';
-    radioPlaceholder.style.display = 'none';
-    video.controls = true;
 
     const timeout = setTimeout(() => {
       overlay.textContent = 'Enlace caído';
