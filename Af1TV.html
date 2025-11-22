@@ -40,7 +40,7 @@
 </header>
 
 <div id="player" ondblclick="document.fullscreenElement?document.exitFullscreen():this.requestFullscreen()">
-  <video id="video" preload="none" playsinline></video>
+  <video id="video" preload="none" playsinline crossorigin="anonymous"></video>
   <audio id="audio" preload="none" playsinline></audio>
   <div id="radioPlaceholder"></div>
   <div id="channelOverlay"></div>
@@ -73,10 +73,12 @@
   const cacheKey = 'af1_channels_cache';
   const cache = JSON.parse(localStorage.getItem(cacheKey) || '{}');
 
-  // TU LISTA DE FÚTBOL QUE FUNCIONA AL 100%
+  // TU LISTA DE FÚTBOL
   const FUTBOL_M3U = 'https://raw.githubusercontent.com/la22lo/sports/main/futbol.m3u';
 
-  // Estado inicial: logo grande
+  // PROXY CORS GRATUITO Y ESTABLE (el mejor que hay ahora mismo)
+  const PROXY = 'https://api.codetabs.com/v1/proxy/?quest=';
+
   video.style.display = 'none';
   audio.style.display = 'none';
   radioPlaceholder.style.display = 'block';
@@ -108,7 +110,6 @@
         { name: 'España', url: 'https://iptv-org.github.io/iptv/countries/es.m3u', logo: 'https://flagcdn.com/es.png' },
         { name: 'Argentina', url: 'https://iptv-org.github.io/iptv/countries/ar.m3u', logo: 'https://flagcdn.com/ar.png' },
         { name: 'México', url: 'https://iptv-org.github.io/iptv/countries/mx.m3u', logo: 'https://flagcdn.com/mx.png' },
-        // ... el resto de países que ya tenías
       ],
       category: [
         { name: 'Deportes', url: 'https://iptv-org.github.io/iptv/categories/sports.m3u', logo: LOGO },
@@ -130,11 +131,7 @@
   }
 
   function loadRemoteList(url) {
-    if (cache[url]) {
-      allChannels = cache[url];
-      displayChannels(allChannels, false);
-      return;
-    }
+    if (cache[url]) { allChannels = cache[url]; displayChannels(allChannels); return; }
     channelList.innerHTML = '<div class="loading">Cargando canales...</div>';
     fetch(url)
       .then(r => r.text())
@@ -143,9 +140,9 @@
         allChannels = parsed;
         cache[url] = parsed;
         localStorage.setItem(cacheKey, JSON.stringify(cache));
-        displayChannels(parsed, false);
+        displayChannels(parsed);
       })
-      .catch(() => channelList.innerHTML = '<div class="loading">Error al cargar la lista</div>');
+      .catch(() => channelList.innerHTML = '<div class="loading">Error al cargar</div>');
   }
 
   function parseM3U(text) {
@@ -167,10 +164,7 @@
 
   function displayChannels(channels, isRadio = false) {
     channelList.innerHTML = '';
-    if (!channels.length) {
-      channelList.innerHTML = '<div class="loading">No hay canales</div>';
-      return;
-    }
+    if (!channels.length) { channelList.innerHTML = '<div class="loading">No hay canales</div>'; return; }
     channels.forEach(ch => {
       const div = document.createElement('div');
       div.className = 'channel';
@@ -184,29 +178,38 @@
     });
   }
 
-  // FUNCIÓN CLAVE: reproduce TODO tipo de enlace perfectamente
-  function playChannel(url, name, isRadio = false) {
-    // Limpiar reproductores anteriores
+  // FUNCIÓN MÁGICA: detecta si necesita proxy y lo aplica
+  function getProxiedUrl(url) {
+    // Si ya tiene proxy o es radio → directo
+    if (url.includes('codetabs') || url.includes('radio-browser') || url.includes('iptv-org')) return url;
+    // Si es de fútbol pirata → proxy
+    if (url.includes(':8080') || url.includes('.ts') || url.includes('superintendente') || url.includes('line.') || url.includes('cdn.')) {
+      return PROXY + encodeURIComponent(url);
+    }
+    return url;
+  }
+
+  function playChannel(originalUrl, name, isRadio = false) {
+    const url = getProxiedUrl(originalUrl);
+
     if (currentHls) { currentHls.destroy(); currentHls = null; }
     if (currentDash) { currentDash.destroy(); currentDash = null; }
     video.pause(); video.removeAttribute('src'); video.load();
     audio.pause(); audio.removeAttribute('src'); audio.load();
 
-    overlay.textContent = 'Viendo: ' + name;
+    overlay.textContent = 'Cargando: ' + name;
     overlay.style.display = 'block';
-    setTimeout(() => overlay.style.display = 'none', 6000);
 
     if (isRadio) {
-      // RADIO → solo audio + logo grande
       video.style.display = 'none';
       audio.style.display = 'block';
       radioPlaceholder.style.display = 'block';
       audio.src = url;
       audio.play().catch(() => {});
+      overlay.style.display = 'none';
       return;
     }
 
-    // TV / FÚTBOL → todo tipo de enlaces
     video.style.display = 'block';
     audio.style.display = 'none';
     radioPlaceholder.style.display = 'none';
@@ -214,35 +217,32 @@
 
     const timeout = setTimeout(() => {
       overlay.textContent = 'Enlace caído';
-      overlay.style.display = 'block';
       setTimeout(() => overlay.style.display = 'none', 3000);
-    }, 10000);
+    }, 15000);
 
-    const tryPlay = () => {
+    const startPlayback = () => {
       clearTimeout(timeout);
       video.play().catch(() => {});
+      overlay.style.display = 'none';
     };
 
     if (url.includes('.mpd')) {
       currentDash = dashjs.MediaPlayer().create();
       currentDash.initialize(video, url, true);
-      currentDash.on(dashjs.MediaPlayer.events.PLAYBACK_STARTED, tryPlay);
-    } 
+    }
     else if (url.includes('.m3u8') && Hls.isSupported()) {
-      currentHls = new Hls({ maxLoadingDelay: 10 });
+      currentHls = new Hls({ maxLoadingDelay: 12 });
       currentHls.loadSource(url);
       currentHls.attachMedia(video);
-      currentHls.on(Hls.Events.MANIFEST_PARSED, tryPlay);
-    } 
+      currentHls.on(Hls.Events.MANIFEST_PARSED, startPlayback);
+    }
     else {
-      // REPRODUCE PERFECTO: .ts directo, superintendente:8080/user/pass, udp→http, etc.
       video.src = url;
       video.load();
-      video.oncanplay = tryPlay;
+      video.oncanplay = startPlayback;
     }
   }
 
-  // === TUS FUNCIONES ORIGINALES 100% INTACTAS ===
   function loadAllChannels() {
     const url = 'https://iptv-org.github.io/iptv/index.m3u';
     if (cache[url]) { allChannels = cache[url]; displayChannels(allChannels); return; }
@@ -254,7 +254,7 @@
       .then(r => r.json())
       .then(data => {
         channelList.innerHTML = '';
-        data.slice(0, 60).forEach(c => {
+        data.slice(0,60).forEach(c => {
           const div = document.createElement('div');
           div.className = 'channel';
           const flag = c.iso_3166_1 ? `https://flagcdn.com/32x24/${c.iso_3166_1.toLowerCase()}.png` : LOGO;
@@ -268,12 +268,7 @@
   function loadRadioStations(country) {
     fetch(`https://de1.api.radio-browser.info/json/stations/bycountryexact/${encodeURIComponent(country)}?hidebroken=true&order=clickcount&reverse=true&limit=500`)
       .then(r => r.json())
-      .then(stations => {
-        const list = stations
-          .filter(s => s.url_resolved)
-          .map(s => ({ name: s.name, url: s.url_resolved, logo: s.favicon || LOGO }));
-        displayChannels(list, true);
-      });
+      .then(st => displayChannels(st.filter(s=>s.url_resolved).map(s=>({name:s.name,url:s.url_resolved,logo:s.favicon||LOGO})), true));
   }
 </script>
 </body>
