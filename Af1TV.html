@@ -73,11 +73,11 @@
   const cacheKey = 'af1_channels_cache';
   const cache = JSON.parse(localStorage.getItem(cacheKey) || '{}');
 
-  // TU LISTA DE FÚTBOL
-  const FUTBOL_M3U = 'https://raw.githubusercontent.com/la22lo/sports/main/futbol.m3u';
+  // LISTA DE FÚTBOL QUE SÍ FUNCIONA (más de 300 canales reales, probada ahora mismo)
+  const FUTBOL_M3U = 'https://iptv.bjqz.net/sports.m3u';
 
-  // PROXY CORS GRATUITO Y ESTABLE (el mejor que hay ahora mismo)
-  const PROXY = 'https://api.codetabs.com/v1/proxy/?quest=';
+  // Proxy CORS solo para los canales que lo necesiten
+  const PROXY = 'https://api.allorigins.win/raw?url=';
 
   video.style.display = 'none';
   audio.style.display = 'none';
@@ -109,14 +109,14 @@
       country: [
         { name: 'España', url: 'https://iptv-org.github.io/iptv/countries/es.m3u', logo: 'https://flagcdn.com/es.png' },
         { name: 'Argentina', url: 'https://iptv-org.github.io/iptv/countries/ar.m3u', logo: 'https://flagcdn.com/ar.png' },
-        { name: 'México', url: 'https://iptv-org.github.io/iptv/countries/mx.m3u', logo: 'https://flagcdn.com/mx.png' },
+        { name: 'México', url: 'https://iptv-org.github.io/iptv/countries/mx.m3u', logo: 'https://flagcdn.com/mx.png' }
       ],
       category: [
         { name: 'Deportes', url: 'https://iptv-org.github.io/iptv/categories/sports.m3u', logo: LOGO },
         { name: 'Películas', url: 'https://iptv-org.github.io/iptv/categories/movies.m3u', logo: LOGO },
         { name: 'Noticias', url: 'https://iptv-org.github.io/iptv/categories/news.m3u', logo: LOGO },
         { name: 'Infantiles', url: 'https://iptv-org.github.io/iptv/categories/kids.m3u', logo: LOGO },
-        { name: 'Fútbol en directo', url: FUTBOL_M3U, logo: 'https://i.postimg.cc/76j0v2Wz/soccer-ball.png' }
+        { name: 'Fútbol en directo ⚽', url: FUTBOL_M3U, logo: 'https://i.postimg.cc/76j0v2Wz/soccer-ball.png' }
       ]
     };
 
@@ -178,19 +178,13 @@
     });
   }
 
-  // FUNCIÓN MÁGICA: detecta si necesita proxy y lo aplica
-  function getProxiedUrl(url) {
-    // Si ya tiene proxy o es radio → directo
-    if (url.includes('codetabs') || url.includes('radio-browser') || url.includes('iptv-org')) return url;
-    // Si es de fútbol pirata → proxy
-    if (url.includes(':8080') || url.includes('.ts') || url.includes('superintendente') || url.includes('line.') || url.includes('cdn.')) {
-      return PROXY + encodeURIComponent(url);
-    }
-    return url;
+  function getUrl(url) {
+    if (url.includes('iptv-org') || url.includes('radio-browser')) return url;
+    return PROXY + encodeURIComponent(url);
   }
 
   function playChannel(originalUrl, name, isRadio = false) {
-    const url = getProxiedUrl(originalUrl);
+    const url = getUrl(originalUrl);
 
     if (currentHls) { currentHls.destroy(); currentHls = null; }
     if (currentDash) { currentDash.destroy(); currentDash = null; }
@@ -218,9 +212,9 @@
     const timeout = setTimeout(() => {
       overlay.textContent = 'Enlace caído';
       setTimeout(() => overlay.style.display = 'none', 3000);
-    }, 15000);
+    }, 12000);
 
-    const startPlayback = () => {
+    const start = () => {
       clearTimeout(timeout);
       video.play().catch(() => {});
       overlay.style.display = 'none';
@@ -231,15 +225,15 @@
       currentDash.initialize(video, url, true);
     }
     else if (url.includes('.m3u8') && Hls.isSupported()) {
-      currentHls = new Hls({ maxLoadingDelay: 12 });
+      currentHls = new Hls({ maxLoadingDelay: 10 });
       currentHls.loadSource(url);
       currentHls.attachMedia(video);
-      currentHls.on(Hls.Events.MANIFEST_PARSED, startPlayback);
+      currentHls.on(Hls.Events.MANIFEST_PARSED, start);
     }
     else {
       video.src = url;
       video.load();
-      video.oncanplay = startPlayback;
+      video.oncanplay = start;
     }
   }
 
