@@ -91,7 +91,8 @@
   audio.style.display = 'none';
   radioPlaceholder.style.display = 'none';
 
-  setTimeout(loadAllChannels, 200);
+  // CARGA INICIAL CON REINTENTO AUTOMÁTICO
+  setTimeout(() => loadWithRetry('https://raw.githubusercontent.com/TVGarden/tv-garden-channel-list/main/channels/raw/categories/all-channels.json'), 400);
 
   searchInput.addEventListener('input', () => {
     const term = searchInput.value.toLowerCase().trim();
@@ -105,7 +106,7 @@
     tab.classList.add('active');
     const type = tab.dataset.type;
     currentMode = type === 'radio' ? 'radio' : 'tv';
-    if (type === 'all') loadAllChannels();
+    if (type === 'all') loadWithRetry('https://iptv-org.github.io/iptv/index.m3u');
     else if (type === 'country') loadChannelsByType('country');
     else if (type === 'category') loadChannelsByType('category');
     else if (type === 'radio') loadRadioCountries();
@@ -114,14 +115,15 @@
   function loadChannelsByType(type) {
     const lists = {
       country: [
-        { name: 'España-1', url: 'https://raw.githubusercontent.com/TVGarden/tv-garden-channel-list/main/channels/raw/countries/es.json', logo: 'https://flagcdn.com/es.png' },
-{ name: 'España-2', url: 'https://iptv-org.github.io/iptv/countries/es.m3u', logo: 'https://flagcdn.com/es.png' },
+ { name: 'España-1', url: 'https://raw.githubusercontent.com/TVGarden/tv-garden-channel-list/main/channels/raw/countries/es.json', logo: 'https://flagcdn.com/es.png' },
+        { name: 'España-2', url: 'https://iptv-org.github.io/iptv/countries/es.m3u', logo: 'https://flagcdn.com/es.png' },
+       
         { name: 'Argentina', url: 'https://iptv-org.github.io/iptv/countries/ar.m3u', logo: 'https://flagcdn.com/ar.png' },
         { name: 'México', url: 'https://iptv-org.github.io/iptv/countries/mx.m3u', logo: 'https://flagcdn.com/mx.png' }
       ],
       category: [
-        { name: 'Mi-lista1', url: 'https://raw.githubusercontent.com/miltonja/PRIVADA-TOTAL-JULIO-2025/main/M3U2-PREMIUM%20SEPTIEMBRE%20ACTIVA.m3u8', logo: LOGO },
-{ name: 'Deportes-1', url: 'https://raw.githubusercontent.com/miltonja/PRIVADA-MILTON/main/PRIVADA%20MILTON', logo: LOGO },
+        { name: 'Lista 1', url: 'https://raw.githubusercontent.com/miltonja/PRIVADA-TOTAL-JULIO-2025/main/M3U2-PREMIUM%20SEPTIEMBRE%20ACTIVA.m3u8', logo: LOGO },
+        { name: 'Deportes-1', url: 'https://raw.githubusercontent.com/miltonja/PRIVADA-MILTON/main/PRIVADA%20MILTON', logo: LOGO },
         { name: 'Deportes-2', url: 'https://raw.githubusercontent.com/TVGarden/tv-garden-channel-list/main/channels/raw/categories/sports.json', logo: LOGO },
         { name: 'Deportes-3', url: 'https://iptv-org.github.io/iptv/categories/sports.m3u', logo: LOGO },
         { name: 'Películas', url: 'https://iptv-org.github.io/iptv/categories/movies.m3u', logo: LOGO },
@@ -138,14 +140,14 @@
         const div = document.createElement('div');
         div.className = 'channel';
         div.innerHTML = `<img src="${item.logo}" onerror="this.src='${LOGO}'"><span>${item.name}</span>`;
-        div.onclick = () => loadRemoteList(item.url);
+        div.onclick = () => loadWithRetry(item.url);
         channelList.appendChild(div);
       });
     }, 100);
   }
 
-  // PARSER MEJORADO 100% COMPATIBLE CON TVGARDEN Y TODO LO DEMÁS
-  async function loadRemoteList(url) {
+  // FUNCIÓN CON REINTENTO AUTOMÁTICO (la clave del fix)
+  async function loadWithRetry(url, retries = 2) {
     if (cache[url]) {
       allChannels = cache[url];
       displayChannels(allChannels);
@@ -154,53 +156,56 @@
 
     clearList();
 
-    try {
-      const res = await fetch(url);
-      if (!res.ok) throw new Error();
-      const text = await res.text();
+    for (let i = 0; i <= retries; i++) {
+      try {
+        const res = await fetch(url, { cache: "no-store" });
+        if (!res.ok) throw new Error();
+        const text = await res.text();
 
-      let parsed = [];
-
-      // Si es JSON (cualquier tipo)
-      if (url.includes('.json') || text.trim().startsWith('[') || text.trim().startsWith('{')) {
-        try {
-          const data = JSON.parse(text);
-          const array = Array.isArray(data) ? data : (data.channels || data.items || data.list || []);
-
-          parsed = array.map(ch => {
-            let stream = null;
-
-            // PRIORIDAD DE CAMPOS (cubre el 99% de formatos)
-            if (Array.isArray(ch.iptv_urls) && ch.iptv_urls.length > 0) stream = ch.iptv_urls[0];
-            else if (ch.url && typeof ch.url === 'string') stream = ch.url;
-            else if (ch.stream_url) stream = ch.stream_url;
-            else if (ch.m3u8) stream = ch.m3u8;
-            else if (ch.sources && ch.sources[0]) stream = ch.sources[0];
-            else if (ch.stream) stream = ch.stream;
-
-            if (!stream) return null;
-
-            return {
-              name: ch.name || ch.title || ch.channel || ch.station || 'Sin nombre',
-              url: stream,
-              logo: ch.logo || ch.icon || ch.tvg_logo || ch.image || LOGO
-            };
-          }).filter(ch => ch !== null);
-
-        } catch(e) {
-          parsed = parseM3U(text);
+        const parsed = await parseContent(text, url);
+        allChannels = parsed;
+        cache[url] = parsed;
+        localStorage.setItem(cacheKey, JSON.stringify(cache));
+        displayChannels(parsed);
+        return;
+      } catch (e) {
+        if (i === retries) {
+          channelList.innerHTML = '<div class="loading">Error al cargar<br><small>Toca de nuevo</small></div>';
         }
-      } else {
+        await new Promise(r => setTimeout(r, 600));
+      }
+    }
+  }
+
+  async function parseContent(text, url) {
+    let parsed = [];
+
+    if (url.includes('.json') || text.trim().startsWith('[') || text.trim().startsWith('{')) {
+      try {
+        const data = JSON.parse(text);
+        const array = Array.isArray(data) ? data : (data.channels || data.items || data.list || []);
+        parsed = array.map(ch => {
+          let stream = null;
+          if (Array.isArray(ch.iptv_urls) && ch.iptv_urls.length > 0) stream = ch.iptv_urls[0];
+          else if (ch.url && typeof ch.url === 'string') stream = ch.url;
+          else if (ch.stream_url) stream = ch.stream_url;
+          else if (ch.m3u8) stream = ch.m3u8;
+          else if (ch.sources && ch.sources[0]) stream = ch.sources[0];
+          else if (ch.stream) stream = ch.stream;
+          if (!stream) return null;
+          return {
+            name: ch.name || ch.title || ch.channel || ch.station || 'Sin nombre',
+            url: stream,
+            logo: ch.logo || ch.icon || ch.tvg_logo || ch.image || LOGO
+          };
+        }).filter(ch => ch !== null);
+      } catch(e) {
         parsed = parseM3U(text);
       }
-
-      allChannels = parsed;
-      cache[url] = parsed;
-      localStorage.setItem(cacheKey, JSON.stringify(cache));
-      displayChannels(parsed);
-    } catch (e) {
-      channelList.innerHTML = '<div class="loading">Error al cargar la lista</div>';
+    } else {
+      parsed = parseM3U(text);
     }
+    return parsed;
   }
 
   function parseM3U(text) {
@@ -239,7 +244,6 @@
     });
   }
 
-  // EL RESTO DEL CÓDIGO (playChannel, radios, etc.) 100% IGUAL
   function playChannel(url, name) {
     if (currentHls) { currentHls.destroy(); currentHls = null; }
     if (currentDash) { currentDash.destroy(); currentDash = null; }
@@ -295,12 +299,6 @@
       video.load();
       video.oncanplay = start;
     }
-  }
-
-  function loadAllChannels() {
-    const url = 'https://raw.githubusercontent.com/TVGarden/tv-garden-channel-list/main/channels/raw/categories/all-channels.json';
-    if (cache[url]) { allChannels = cache[url]; displayChannels(allChannels); return; }
-    loadRemoteList(url);
   }
 
   function loadRadioCountries() {
