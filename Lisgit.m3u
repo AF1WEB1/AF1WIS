@@ -1,0 +1,354 @@
+#EXTM3U
+#EXTVLCOPT:http-user-agent=Mozilla/5.0 (iPhone; CPU iPhone OS 17_5_1 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/14.0.1 Mobile/15E148 Safari/605.1.15/Clipbox+/2.2.8
+
+#EXTINF:-1 tvg-logo="https://www.psnsat.com/wp-content/uploads/2020/07/digital-ch-new.jpg",รวมช่อง
+#EXTVLCOPT:http-referer=https://dookeela.live/
+https://dookeela2.live/live-tv/nbt2hd
+
+#EXTINF:-1 tvg-logo="https://upload.wikimedia.org/wikipedia/commons/thumb/9/9c/NBT2_HD_2025.svg/181px-NBT2_HD_2025.svg.png",NBTสำรอง1
+#EXTVLCOPT:http-referer=https://cdn-edge.iiptvcdn.com
+https://cdn-edge.iiptvcdn.com/live_event/smil:f180-054a-38d7-ce66-f7cf.smil/chunklist_w884800294_b3128000.m3u8
+
+#EXTINF:-1 tvg-logo="https://ais-s.ais-vidnt.com/ais/play/origin/LIVE//channelicon/0014.png",ThaiTPBS
+#EXTVLCOPT:http-referer=https://thaipbs-live.cdn.byteark.com
+http://thaipbs-live.cdn.byteark.com/live/playlist_1080p/index.m3u8
+
+#EXTINF:-1 tvg-logo="https://ais-s.ais-vidnt.com/ais/play/origin/LIVE//channelicon/0014.png",ThaiTPBSสำรอง1
+#EXTVLCOPT:http-referer=https://dookeela.live/
+https://dookeela2.live/live-tv/thaipbs
+
+#EXTINF:-1 tvg-logo="https://ais-s.ais-vidnt.com/ais/play/origin/LIVE//channelicon/ALTV.PNG",ALTV4
+#EXTVLCOPT:http-referer=https://thaipbs-ujxrch.cdn.byteark.com
+https://thaipbs-ujxrch.cdn.byteark.com/live/playlist.m3u8
+
+#EXTINF:-1 tvg-logo="https://ais-s.ais-vidnt.com/ais/play/origin/LIVE//channelicon/ALTV.PNG",ALTV4สำรอง1
+#EXTVLCOPT:http-referer=https://dookeela.live/
+https://dookeela2.live/live-tv/altv4
+
+#EXTINF:-1 tvg-logo="https://i.imgur.com/URDVdVv.png",VIPA
+#EXTVLCOPT:http-referer=https://thaipbs-live.cdn.byteark.com
+https://thaipbs-ophctt.cdn.byteark.com/0db95d655989436dbd571dcb8f70d98f/ap-southeast-1/6075037809001/profile_2/chunklist.m3u8
+
+#EXTINF:-1 tvg-logo="https://ais-s.ais-vidnt.com/ais/play/origin/LIVE//channelicon//0007.png",Ch5
+#EXTVLCOPT:http-referer=https://streamlock.net/
+https://639bc5877c5fe.streamlock.net/tv5hdlive/tv5hdlive/playlist.m3u8
+
+#EXTINF:-1 tvg-logo="https://ais-s.ais-vidnt.com/ais/play/origin/LIVE//channelicon//0007.png",Ch5สำรอง1
+#EXTVLCOPT:http-referer=https://dookeela.live/
+https://dookeela2.live/live-tv/ch5hd
+
+#EXTINF:-1 tvg-logo="https://ais-s.ais-vidnt.com/ais/play/origin/LIVE/channelicon/T-SPorts_7_Final.png",TSport7
+#EXTVLCOPT:http-referer=https://dookeela.live/
+https://dookeela2.live/live-tv/tsports7
+
+#EXTINF:-1 tvg-logo="https://ais-s.ais-vidnt.com/ais/play/origin/LIVE/channelicon/T-SPorts_7_Final.png",TSport7สำรอง1
+#EXTVLCOPT:http-referer=https://livesod365.info/
+https://gmmztv.v2h-cdn.com/ffef/gmmz-tsport7.stream/playlist.m3u8
+
+#EXTINF:-1 tvg-logo="https://ais-s.ais-vidnt.com/ais/play/origin/LIVE//channelicon/0048.png",Thai Parliament TV
+#EXTVLCOPT:http-referer=https://tv-live.tpchannel
+https://tv-live.tpchannel.org/live/tv_1080p.m3u8
+
+#EXTINF:-1 tvg-logo="https://ais-s.ais-vidnt.com/ais/play/origin/LIVE//channelicon/0048.png",Thai Parliament TVสำรอง1
+#EXTVLCOPT:http-referer=
+https://udn-streamer1.cdn.3bbtv.com:8443/3bb/live/10/10.mpd
+
+#EXTINF:-1 tvg-logo="https://ais-s.ais-vidnt.com/ais/play/origin/LIVE/channelicon/R2_0053.png",TNN16
+#EXTVLCOPT:http-referer=https://dookeela.live/
+https://dookeela2.live/live-tv/tnn
+
+#EXTINF:-1 tvg-logo="https://ais-s.ais-vidnt.com/ais/play/origin/LIVE/channelicon/R2_0053.png",TNN16สำรอง1
+#EXTVLCOPT:http-referer=https://github.com/
+https://github.com/cattviptv2605/digital/raw/refs/heads/main/TNN24.m3u8
+
+#EXTINF:-1 tvg-logo="https://ais-s.ais-vidnt.com/ais/play/origin/LIVE//channelicon/JKN18.png",JKN18
+#EXTVLCOPT:http-referer=https://dookeela.live/
+https://dookeela2.live/live-tv/jkn18
+
+#EXTINF:-1 tvg-logo="https://ais-s.ais-vidnt.com/ais/play/origin/LIVE//channelicon/JKN18.png",JKN18สำรอง1
+#EXTVLCOPT:http-referer=https://github.com/
+https://github.com/cattviptv2605/digital/raw/refs/heads/main/JKN18.m3u8
+
+#EXTINF:-1 tvg-logo="https://ais-s.ais-vidnt.com/ais/play/origin/LIVE/channelicon/22_Nation_2025.png",Nation
+#EXTVLCOPT:http-referer=https://nationtv-1jdcjo.cdn.byteark.com
+https://nationtv-1jdcjo.cdn.byteark.com/fleetstream/nationtvlive/720p/index.m3u8
+
+#EXTINF:-1 tvg-logo="https://ais-s.ais-vidnt.com/ais/play/origin/LIVE/channelicon/22_Nation_2025.png",Nationสำรอง1
+#EXTVLCOPT:http-referer=https://dookeela.live/
+https://dookeela2.live/live-tv/nationtv
+
+#EXTINF:-1 tvg-logo="https://ais-s.ais-vidnt.com/ais/play/origin/LIVE/channelicon//0015_R.png",Workpoint
+#EXTVLCOPT:http-referer=https://global-media.sooplive.com/
+https://global-media.sooplive.com/live/workpoint/master.m3u8
+
+#EXTINF:-1 tvg-logo="https://ais-s.ais-vidnt.com/ais/play/origin/LIVE/channelicon//0015_R.png",Workpointสำรอง1
+#EXTVLCOPT:http-referer=
+https://cri-streamer3.cdn.3bbtv.com:8443/3bb/live/23/23.mpd
+
+#EXTINF:-1 tvg-logo="https://ais-s.ais-vidnt.com/ais/play/origin/LIVE/channelicon/0054.png",true4U
+#EXTVLCOPT:http-referer=https://iptv36.vercel.app/
+https://iptv36.vercel.app/api/true.m3u8?channel=true4u
+
+#EXTINF:-1 tvg-logo="https://ais-s.ais-vidnt.com/ais/play/origin/LIVE/channelicon/0054.png",true4Uสำรอง1
+#EXTVLCOPT:http-referer=
+https://cri-streamer3.cdn.3bbtv.com:8443/3bb/live/24/24.mpd
+
+#EXTINF:-1 tvg-logo="https://ais-s.ais-vidnt.com/ais/play/origin/LIVE/channelicon/0019.png",Gmm25
+#EXTVLCOPT:http-referer=https://dookeela.live/
+https://dookeela2.live/live-tv/gmm25
+
+#EXTINF:-1 tvg-logo="https://ais-s.ais-vidnt.com/ais/play/origin/LIVE/channelicon/0019.png",Gmm25สำรอง1
+#EXTVLCOPT:http-referer=
+https://cri-streamer3.cdn.3bbtv.com:8443/3bb/live/25/25.mpd
+
+#EXTINF:-1 tvg-logo="https://ais-s.ais-vidnt.com/ais/play/origin/LIVE/channelicon//0006.png",CH8
+#EXTVLCOPT:http-referer=https://dookeela.live/
+https://dookeela2.live/live-tv/ch8
+
+#EXTINF:-1 tvg-logo="https://ais-s.ais-vidnt.com/ais/play/origin/LIVE/channelicon//0006.png",CH8สำรอง1
+#EXTVLCOPT:http-referer=https://prsmedia-mykojh.cdn.byteark.com/
+https://prsmedia-mykojh.cdn.byteark.com/fleetstream/live/720p/index.m3u8
+
+#EXTINF:-1 tvg-logo="https://mono29.com/app/themes/mono29-2017/assets/images/tumb_mono29.png",Mono29
+#EXTVLCOPT:http-referer=
+https://cri-streamer3.cdn.3bbtv.com:8443/3bb/live/29/29.mpd
+
+#EXTINF:-1 tvg-logo="https://mono29.com/app/themes/mono29-2017/assets/images/tumb_mono29.png",Mono29สำรอง1
+#EXTVLCOPT:http-referer=https://monomax-uiripn.cdn.byteark.com/
+https://monomax-uiripn.cdn.byteark.com/plain/th/playlist.m3u8
+
+#EXTINF:-1 tvg-logo="https://mono29.com/app/themes/mono29-2017/assets/images/tumb_mono29.png",Mono29สำรอง2
+#EXTVLCOPT:http-referer=https://dookeela.live/
+https://dookeela2.live/live-tv/mono29
+
+#EXTINF:-1 tvg-logo="https://ais-s.ais-vidnt.com/ais/play/origin/LIVE///channelicon//Mono29Plus_new.png",Mono29Plus
+#EXTVLCOPT:http-referer=https://dookeela.live/
+https://dookeela2.live/live-tv/mono29plus
+
+#EXTINF:-1 tvg-logo="https://ais-s.ais-vidnt.com/ais/play/origin/LIVE///channelicon//Mono29Music_new.png",Mono29Music
+#EXTVLCOPT:http-referer=https://dookeela.live/
+https://dookeela.live/live-tv/mono-29-music-station
+
+#EXTINF:-1 tvg-logo="https://ais-s.ais-vidnt.com/ais/play/origin/LIVE/channelicon/MCOT_new.png",Mcot
+#EXTVLCOPT:http-referer=https://dookeela.live/
+https://dookeela2.live/live-tv/mcothd
+
+#EXTINF:-1 tvg-logo="https://ais-s.ais-vidnt.com/ais/play/origin/LIVE/channelicon/MCOT_new.png",Mcotสำรอง1
+#EXTVLCOPT:http-referer=
+https://cco-streamer1.cdn.3bbtv.com:8443/3bb/live/30/30.mpd
+
+#EXTINF:-1 tvg-logo="https://ais-s.ais-vidnt.com/ais/play/origin/LIVE/channelicon/0012.png",One31
+#EXTVLCOPT:http-referer=https://dookeela.live/
+https://dookeela2.live/live-tv/one31
+
+#EXTINF:-1 tvg-logo="https://ais-s.ais-vidnt.com/ais/play/origin/LIVE/channelicon/0012.png",One31สำรอง1
+#EXTVLCOPT:http-referer=
+https://cco-streamer1.cdn.3bbtv.com:8443/3bb/live/31/31.mpd
+
+#EXTINF:-1 tvg-logo="https://ais-s.ais-vidnt.com/ais/play/origin/LIVE/channelicon/0013_R.png",ThairatTV
+#EXTVLCOPT:http-referer=https://dookeela.live/
+https://dookeela2.live/live-tv/thairathtv
+
+#EXTINF:-1 tvg-logo="https://ais-s.ais-vidnt.com/ais/play/origin/LIVE/channelicon/0013_R.png",ThairatTVสำรอง1
+#EXTVLCOPT:http-referer=https://github.com/
+https://github.com/cattviptv2605/digital/raw/refs/heads/main/ThairatTV.m3u8
+
+#EXTINF:-1 tvg-logo="https://ais-s.ais-vidnt.com/ais/play/origin/LIVE//channelicon/LOGO3HD.PNG",Ch3
+#EXTVLCOPT:http-referer=https://dookeela.live/
+https://dookeela2.live/live-tv/ch3hd
+
+#EXTINF:-1 tvg-logo="https://ais-s.ais-vidnt.com/ais/play/origin/LIVE//channelicon/LOGO3HD.PNG",Ch3สำรอง1
+#EXTVLCOPT:http-referer=https://github.com/
+https://github.com/cattviptv2605/digital/raw/refs/heads/main/CH3.m3u8
+
+#EXTINF:-1 tvg-logo="https://ais-s.ais-vidnt.com/ais/play/origin/LIVE//channelicon/0017_R.png",AmarinTV
+#EXTVLCOPT:http-referer=https://dookeela.live/
+https://dookeela2.live/live-tv/amarintv
+
+#EXTINF:-1 tvg-logo="https://ais-s.ais-vidnt.com/ais/play/origin/LIVE//channelicon/0017_R.png",AmarinTVสำรอง1
+#EXTVLCOPT:http-referer=https://github.com/
+https://github.com/cattviptv2605/digital/raw/refs/heads/main/AmarinTV.m3u8
+
+#EXTINF:-1 tvg-logo="https://ais-s.ais-vidnt.com/ais/play/origin/LIVE//channelicon/0018.png",Ch7
+#EXTVLCOPT:http-referer=https://livech7hd
+https://live-cdn.ch7.com/out/v1/eafeb02c55b64a15b278b1e66c7fc776/playlist_9.m3u8
+
+#EXTINF:-1 tvg-logo="https://ais-s.ais-vidnt.com/ais/play/origin/LIVE//channelicon/0018.png",Ch7สำรอง1
+#EXTVLCOPT:http-referer=https://github.com/
+https://github.com/cattviptv2605/digital/raw/refs/heads/main/CH7.m3u8
+
+#EXTINF:-1 tvg-logo="https://ais-s.ais-vidnt.com/ais/play/origin/LIVE/channelicon/R_0022.png",PPTV
+#EXTVLCOPT:http-referer=https://dookeela.live/
+https://dookeela2.live/live-tv/pptv
+
+#EXTINF:-1 tvg-logo="https://ais-s.ais-vidnt.com/ais/play/origin/LIVE/channelicon/R_0022.png",PPTVสำรอง1
+#EXTVLCOPT:http-referer=https://github.com/
+https://github.com/cattviptv2605/digital/raw/refs/heads/main/PPTV.m3u8
+
+#EXTINF:-1 tvg-logo="https://ais-s.ais-vidnt.com/ais/play/origin/LIVE//channelicon/TOPNEWS.PNG",Topnews
+#EXTVLCOPT:http-referer=https://live.topnews.co.th
+https://live.topnews.co.th/hls/topnews_a_720.m3u8
+
+#EXTINF:-1 tvg-logo="https://ais-s.ais-vidnt.com/ais/play/origin/LIVE/channelicon/0036.png",New1
+#EXTVLCOPT:http-referer=https://server1.streamssl.com
+https://server1.streamssl.com/stream/news1_hi.m3u8
+
+#EXTINF:-1 tvg-logo="https://i.imgur.com/FvEp1S2.png",13SiamThai
+#EXTVLCOPT:http-referer=https://live.x2.co.th
+https://live.x2.co.th/live/13livetv-th.m3u8
+
+#EXTINF:-1 tvg-logo="https://ais-s.ais-vidnt.com/ais/play/origin/LIVE//channelicon/R_0148.png",HBO
+#EXTVLCOPT:http-referer=https://dookeela.live/
+https://dookeela2.live/live-tv/hbo
+
+#EXTINF:-1 tvg-logo="https://ais-s.ais-vidnt.com/ais/play/origin/LIVE//channelicon/R_0148.png",HBOสำรอง1
+#EXTVLCOPT:http-referer=https://github.com/
+https://github.com/cattviptv2605/movies/raw/refs/heads/main/hbo.m3u8
+
+#EXTINF:-1 tvg-logo="https://ais-s.ais-vidnt.com/ais/play/origin/LIVE/channelicon//0151.png",HBOHits
+#EXTVLCOPT:http-referer=https://dookeela.live/
+https://dookeela2.live/live-tv/hbo-hits
+
+#EXTINF:-1 tvg-logo="https://ais-s.ais-vidnt.com/ais/play/origin/LIVE/channelicon//0151.png",HBOHitsสำรอง1
+#EXTVLCOPT:http-referer=https://github.com/
+https://github.com/cattviptv2605/movies/raw/refs/heads/main/hbohits.m3u8
+
+#EXTINF:-1 tvg-logo="https://ais-s.ais-vidnt.com/ais/play/origin/LIVE/channelicon//0149.png",HBOSignature
+#EXTVLCOPT:http-referer=https://dookeela.live/
+https://dookeela2.live/live-tv/hbo-signature
+
+#EXTINF:-1 tvg-logo="https://ais-s.ais-vidnt.com/ais/play/origin/LIVE/channelicon//0149.png",HBOSignatureสำรอง1
+#EXTVLCOPT:http-referer=https://github.com/
+https://github.com/cattviptv2605/movies/raw/refs/heads/main/hbosignature.m3u8
+
+#EXTINF:-1 tvg-logo="https://ais-s.ais-vidnt.com/ais/play/origin/LIVE/channelicon/0150.png",HBOFamily
+#EXTVLCOPT:http-referer=https://dookeela.live/
+https://dookeela2.live/live-tv/hbo-family
+
+#EXTINF:-1 tvg-logo="https://ais-s.ais-vidnt.com/ais/play/origin/LIVE/channelicon/0150.png",HBOFamilyสำรอง1
+#EXTVLCOPT:http-referer=https://github.com/
+https://github.com/cattviptv2605/movies/raw/refs/heads/main/hbofamily.m3u8
+
+#EXTINF:-1 tvg-logo="https://ais-s.ais-vidnt.com/ais/play/origin/LIVE//channelicon/0147.png",Cinemax
+#EXTVLCOPT:http-referer=https://dookeela.live/
+https://dookeela2.live/live-tv/cinemax
+
+#EXTINF:-1 tvg-logo="https://ais-s.ais-vidnt.com/ais/play/origin/LIVE//channelicon/0147.png",Cinemaxสำรอง1
+#EXTVLCOPT:http-referer=https://github.com/
+https://github.com/cattviptv2605/movies/raw/refs/heads/main/cinemax.m3u8
+
+#EXTINF:-1 tvg-logo="https://58-64-52-73-rewriter.ais-vidnt.com/ais/play/origin/LIVE/channelicon//HITS.png",Hits
+#EXTVLCOPT:http-referer=https://dookeela.live/
+https://dookeela2.live/live-tv/hits
+
+#EXTINF:-1 tvg-logo="https://58-64-52-73-rewriter.ais-vidnt.com/ais/play/origin/LIVE/channelicon//HITS.png",Hitsสำรอง1
+#EXTVLCOPT:http-referer=https://github.com/
+https://github.com/cattviptv2605/movies/raw/refs/heads/main/hits.m3u8
+
+#EXTINF:-1 tvg-logo="https://58-64-52-73-rewriter.ais-vidnt.com/ais/play/origin/LIVE/channelicon//HitsMovie.png",Hitmovies
+#EXTVLCOPT:http-referer=https://dookeela.live/
+https://dookeela2.live/live-tv/hits-movies
+
+#EXTINF:-1 tvg-logo="https://58-64-52-73-rewriter.ais-vidnt.com/ais/play/origin/LIVE/channelicon//HitsMovie.png",Hitmoviesสำรอง1
+#EXTVLCOPT:http-referer=https://github.com/
+https://github.com/cattviptv2605/movies/raw/refs/heads/main/hitsmovies.m3u8
+
+#EXTINF:-1 tvg-logo="https://provider-static.plex.tv/epg/cms/production/c94e3220-9a45-42e9-8bdb-01fc43e0f27c/white_textAction_Hollywood_Movies_logo_dark_-_Angela_Chan.png",Action Hollywood Movies
+#EXTVLCOPT:http-referer=https://cdn-apse1-prod/
+https://cdn-apse1-prod.tsv2.amagi.tv/linear/amg01076-lightningintern-actionhollywood-samsungnz/playlist.m3u8
+
+#EXTINF:-1 tvg-logo="https://ais-s.ais-vidnt.com/ais/play/origin/LIVE/channelicon/RockAction.png",RockAction
+#EXTVLCOPT:http-referer=https://dookeela.live/
+https://dookeela2.live/live-tv/rock-action
+
+#EXTINF:-1 tvg-logo="https://ais-s.ais-vidnt.com/ais/play/origin/LIVE/channelicon/RockAction.png",RockActionสำรอง1
+#EXTVLCOPT:http-referer=https://github.com/
+https://github.com/cattviptv2605/movies/raw/refs/heads/main/rockaction.m3u8
+
+#EXTINF:-1 tvg-logo="https://cdn.prod.website-files.com/67ad5259c6e804a40b4bae5b/67ad5259c6e804a40b4baf29_ENT_LOGO_GOLD_NoShadow.webp",RockEnterainment
+#EXTVLCOPT:http-referer=https://dookeela.live/
+https://dookeela2.live/live-tv/rock-entertainment
+
+#EXTINF:-1 tvg-logo="https://cdn.prod.website-files.com/67ad5259c6e804a40b4bae5b/67ad5259c6e804a40b4baf29_ENT_LOGO_GOLD_NoShadow.webp",RockEnterainmentสำรอง1
+#EXTVLCOPT:http-referer=https://github.com/
+https://github.com/cattviptv2605/movies/raw/refs/heads/main/rockenterainment.m3u8
+
+#EXTINF:-1 tvg-logo="https://cms.dmpcdn.com/livetv/2019/01/24/a1e34189-e612-4afa-b784-6a01215bc592.png",Axn
+#EXTVLCOPT:http-referer=https://dookeela.live/
+https://dookeela2.live/live-tv/axn
+
+#EXTINF:-1 tvg-logo="https://cms.dmpcdn.com/livetv/2019/01/24/a1e34189-e612-4afa-b784-6a01215bc592.png",Axnสำรอง1
+#EXTVLCOPT:http-referer=https://github.com/
+https://github.com/cattviptv2605/movies/raw/refs/heads/main/trueaxn.m3u8
+
+#EXTINF:-1 tvg-logo="https://ais-s.ais-vidnt.com/ais/play/origin/LIVE/channelicon/0105.png",Warnertv
+#EXTVLCOPT:http-referer=https://dookeela.live/
+https://dookeela2.live/live-tv/warnertv
+
+#EXTINF:-1 tvg-logo="https://ais-s.ais-vidnt.com/ais/play/origin/LIVE/channelicon/0105.png",Warnertvสำรอง1
+#EXTVLCOPT:http-referer=https://github.com/
+https://github.com/cattviptv2605/movies/raw/refs/heads/main/warnertv.m3u8
+
+#EXTINF:-1 tvg-logo="https://cms.dmpcdn.com/livetv/2022/01/12/29f93040-7374-11ec-b576-afbb0a1303ef_webp_320.png",trueTHAIFILM
+#EXTVLCOPT:http-referer=https://dookeela.live/
+https://dookeela2.live/live-tv/truethaifilm
+
+#EXTINF:-1 tvg-logo="https://cms.dmpcdn.com/livetv/2022/01/12/29f93040-7374-11ec-b576-afbb0a1303ef_webp_320.png",trueTHAIFILMสำรอง1
+#EXTVLCOPT:http-referer=https://github.com/
+https://github.com/cattviptv2605/movies/raw/refs/heads/main/truethaifilm.m3u8
+
+#EXTINF:-1 tvg-logo="https://cms.dmpcdn.com/livetv/2022/01/12/26308f80-7374-11ec-91d2-797a50c5a656_webp_320.png",trueFILM1
+#EXTVLCOPT:http-referer=https://dookeela.live/
+https://dookeela2.live/live-tv/truefilm1
+
+#EXTINF:-1 tvg-logo="https://cms.dmpcdn.com/livetv/2022/01/12/26308f80-7374-11ec-91d2-797a50c5a656_webp_320.png",trueFILM1สำรอง1
+#EXTVLCOPT:http-referer=https://github.com/
+https://github.com/cattviptv2605/movies/raw/refs/heads/main/truefilm1.m3u8
+
+#EXTINF:-1 tvg-logo="https://cms.dmpcdn.com/livetv/2022/01/12/26725370-7374-11ec-91d2-797a50c5a656_webp_320.png",trueFILM2
+#EXTVLCOPT:http-referer=https://dookeela.live/
+https://dookeela2.live/live-tv/truefilm2
+
+#EXTINF:-1 tvg-logo="https://cms.dmpcdn.com/livetv/2022/01/12/26725370-7374-11ec-91d2-797a50c5a656_webp_320.png",trueFILM2สำรอง1
+#EXTVLCOPT:http-referer=https://github.com/
+https://github.com/cattviptv2605/movies/raw/refs/heads/main/truefilm2.m3u8
+
+#EXTINF:-1 tvg-logo="https://cms.dmpcdn.com/livetv/2022/01/12/275f4b80-7374-11ec-91d2-797a50c5a656_webp_320.png",trueMOVIEHITS
+#EXTVLCOPT:http-referer=https://dookeela.live/
+https://dookeela2.live/live-tv/truemoviehits
+
+#EXTINF:-1 tvg-logo="https://cms.dmpcdn.com/livetv/2022/01/12/275f4b80-7374-11ec-91d2-797a50c5a656_webp_320.png",trueMOVIEHITSสำรอง1
+#EXTVLCOPT:http-referer=https://github.com/
+https://github.com/cattviptv2605/movies/raw/refs/heads/main/truemoviehits.m3u8
+
+#EXTINF:-1 tvg-logo="https://cms.dmpcdn.com/livetv/2022/01/12/26c50750-7374-11ec-b576-afbb0a1303ef_webp_320.png",trueFILMASIA
+#EXTVLCOPT:http-referer=https://dookeela.live/
+https://dookeela2.live/live-tv/truefilmasia
+
+#EXTINF:-1 tvg-logo="https://cms.dmpcdn.com/livetv/2022/01/12/26c50750-7374-11ec-b576-afbb0a1303ef_webp_320.png",trueFILMASIAสำรอง1
+#EXTVLCOPT:http-referer=https://github.com/
+https://github.com/cattviptv2605/movies/raw/refs/heads/main/truefilmasia.m3u8
+
+#EXTINF:-1 tvg-logo="https://cms.dmpcdn.com/livetv/2022/01/12/27a46ad0-7374-11ec-b576-afbb0a1303ef_webp_320.png",trueSeries
+#EXTVLCOPT:http-referer=https://dookeela.live/
+https://dookeela2.live/live-tv/trueseries
+
+#EXTINF:-1 tvg-logo="https://cms.dmpcdn.com/livetv/2022/01/12/27a46ad0-7374-11ec-b576-afbb0a1303ef_webp_320.png",trueSeriesสำรอง1
+#EXTVLCOPT:http-referer=https://github.com/
+https://github.com/cattviptv2605/movies/raw/refs/heads/main/trueseries.m3u8
+
+#EXTINF:-1 tvg-logo="https://cms.dmpcdn.com/livetv/2021/09/30/afce4460-220e-11ec-a7e5-ad93430e14a4_webp_original.webp",trueASIANMORE
+#EXTVLCOPT:http-referer=https://dookeela.live/
+https://dookeela2.live/live-tv/trueasianmore
+
+#EXTINF:-1 tvg-logo="https://cms.dmpcdn.com/livetv/2021/09/30/afce4460-220e-11ec-a7e5-ad93430e14a4_webp_original.webp",trueASIANMOREสำรอง1
+#EXTVLCOPT:http-referer=https://github.com/
+https://github.com/cattviptv2605/movies/raw/refs/heads/main/trueasianmore.m3u8
+
+#EXTINF:-1 tvg-logo="https://cms.dmpcdn.com/livetv/2018/12/17/febce46e-fb05-41d9-b294-08ecb3f1d1e6.png",CCM
+#EXTVLCOPT:http-referer=https://dookeela.live/
+https://dookeela2.live/live-tv/ccm
+
+#EXTINF:-1 tvg-logo="https://cms.dmpcdn.com/livetv/2018/12/17/febce46e-fb05-41d9-b294-08ecb3f1d1e6.png",CCMสำรอง1
+#EXTVLCOPT:http-referer=https://github.com/
+https://github.com/cattviptv2605/movies/raw/refs/heads/main/trueccm.m3u8
